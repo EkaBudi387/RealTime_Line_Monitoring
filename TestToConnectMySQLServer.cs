@@ -6,10 +6,9 @@ using System.Windows.Forms;
 
 namespace WindowsFormsAppWithDatabase
 {
-    class TestToConnectMySQLServer
 
+    class TestToConnectMySQLServer
     {
-        //Method that return a table value from MySQL database with input sql command//
 
         public static MySqlConnection OpenConnection(string server, string port, string database, string userID, string password)
         {
@@ -29,25 +28,23 @@ namespace WindowsFormsAppWithDatabase
             {
                 connection.Open();
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show("Can not open connection ! " + ex.Message);
-                
             }
 
             return connection;
-
         }
         
         public static DataTable FillData(string sql, MySqlConnection connection)
-
         {
-
             DataTable table = new DataTable();
+                
             MySqlCommand command = new MySqlCommand(sql, connection);
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             adapter.SelectCommand = command;
-            adapter.Fill(table);
+            adapter.Fill(table);    
 
             return table;
         }

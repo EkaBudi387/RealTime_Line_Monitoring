@@ -17,6 +17,14 @@ namespace WindowsFormsAppWithDatabase
 
         List <Panel> listPanel = new List <Panel>();
 
+        List<string> columnHeaderInput = new List<string>();
+
+        DataTable dttable1;
+        DataTable dttable2;
+        DataTable dttable3;
+
+        MySqlConnection connection;
+
         string sql1 = "select Time, Station, SA_SN, SA_PN, Line, State " +
                 "from sfcs_semi_fgtest " +
                 "where time >= now() - interval 4 day and State NOT LIKE \"OK\" " +
@@ -51,12 +59,10 @@ namespace WindowsFormsAppWithDatabase
         "from sfcs_fgtest " +
         "where time >= now() - interval 1 day ";
 
-
         public Form1()
         {
             InitializeComponent();
         }
-
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -81,14 +87,11 @@ namespace WindowsFormsAppWithDatabase
         private void timer1_Tick(object sender, EventArgs e)
         {
 
-
-            MySqlConnection connection = TestToConnectMySQLServer.OpenConnection(textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text);
-
             DataTable dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
             DataTable dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
             DataTable dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
-            DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count");
-            DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count");
+            DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
+            DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
             //DataTable dtPercentage = Pivot.GetPercentagePivotTable(dtReturn, "Row Total");
 
 
@@ -98,7 +101,7 @@ namespace WindowsFormsAppWithDatabase
             Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3);
             //dataGridView3.DataSource = dtPercentage.DefaultView;
 
-            Pivot.GetDataGridCellColor(dataGridView2);
+            //Pivot.GetDataGridCellColor(dataGridView2);
 
             textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
 
@@ -123,30 +126,21 @@ namespace WindowsFormsAppWithDatabase
                 writer.WriteLine(textBox3.Text + ',' + textBox4.Text + ',' + textBox5.Text + ',' + textBox6.Text + ',' + textBox7.Text);
                 writer.Close();
             }
-           
 
-            listPanel[1].SendToBack();
+            connection = TestToConnectMySQLServer.OpenConnection(textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text);
 
-            MySqlConnection connection = TestToConnectMySQLServer.OpenConnection(textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text);
 
-            DataTable dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
-            DataTable dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
-            DataTable dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
-            DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count");
-            DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count");
-            //DataTable dtPercentage = Pivot.GetPercentagePivotTable(dtReturn, "Row Total");
+            if (connection.State == ConnectionState.Open)
+            {
+                listPanel[1].SendToBack();
 
-            dataGridView1.DataSource = dttable1.DefaultView;
-            dataGridView2.DataSource = dtReturn.DefaultView;
-            dataGridView3.DataSource = dtReturn2.DefaultView;
-            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3);
-            //dataGridView3.DataSource = dtPercentage.DefaultView;
+                timer1.Enabled = true;
 
-            Pivot.GetDataGridCellColor(dataGridView2);
+                dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
+                dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
+                dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
 
-            textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
-
-            timer1.Enabled = true;
+            }
 
         }
 
@@ -158,6 +152,115 @@ namespace WindowsFormsAppWithDatabase
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            DataTable dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
+            DataTable dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
+            DataTable dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
+            DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
+            DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
+            //DataTable dtPercentage = Pivot.GetPercentagePivotTable(dtReturn, "Row Total");
+
+            dataGridView1.DataSource = dttable1.DefaultView;
+            dataGridView2.DataSource = dtReturn.DefaultView;
+            dataGridView3.DataSource = dtReturn2.DefaultView;
+            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3);
+            //dataGridView3.DataSource = dtPercentage.DefaultView;
+
+            //Pivot.GetDataGridCellColor(dataGridView2);
+
+            textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (comboBox1.Text == "1 of 2 (07:00 - 16:00)")
+            {
+
+                columnHeaderInput.Clear();
+                columnHeaderInput.Add("07");
+                columnHeaderInput.Add("08");
+                columnHeaderInput.Add("09");
+                columnHeaderInput.Add("10");
+                columnHeaderInput.Add("11");
+                columnHeaderInput.Add("12");
+                columnHeaderInput.Add("13");
+                columnHeaderInput.Add("14");
+                columnHeaderInput.Add("15");
+
+            }
+
+            else if(comboBox1.Text == "2 of 2 (16:00 - 01:00)")
+            {
+                columnHeaderInput.Clear();
+                columnHeaderInput.Add("16");
+                columnHeaderInput.Add("17");
+                columnHeaderInput.Add("18");
+                columnHeaderInput.Add("19");
+                columnHeaderInput.Add("20");
+                columnHeaderInput.Add("21");
+                columnHeaderInput.Add("22");
+                columnHeaderInput.Add("23");
+                columnHeaderInput.Add("00");
+
+            }
+            else if (comboBox1.Text == "1 of 3 (07:00 - 15:00)")
+            {
+                columnHeaderInput.Clear();
+                columnHeaderInput.Add("07");
+                columnHeaderInput.Add("08");
+                columnHeaderInput.Add("09");
+                columnHeaderInput.Add("10");
+                columnHeaderInput.Add("11");
+                columnHeaderInput.Add("12");
+                columnHeaderInput.Add("13");
+                columnHeaderInput.Add("14");
+
+            }
+            else if (comboBox1.Text == "2 of 3 (15:00 - 23:00)")
+            {
+                columnHeaderInput.Clear();
+                columnHeaderInput.Add("15");
+                columnHeaderInput.Add("16");
+                columnHeaderInput.Add("17");
+                columnHeaderInput.Add("18");
+                columnHeaderInput.Add("19");
+                columnHeaderInput.Add("20");
+                columnHeaderInput.Add("21");
+                columnHeaderInput.Add("22");
+
+            }
+            else
+            {
+                columnHeaderInput.Clear();
+                columnHeaderInput.Add("23");
+                columnHeaderInput.Add("00");
+                columnHeaderInput.Add("01");
+                columnHeaderInput.Add("02");
+                columnHeaderInput.Add("03");
+                columnHeaderInput.Add("04");
+                columnHeaderInput.Add("05");
+                columnHeaderInput.Add("06");
+
+            }
+
+            dataGridView1.DataSource = null;
+            dataGridView2.DataSource = null;
+            dataGridView3.DataSource = null;
+
+            DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
+            DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
+
+            dataGridView1.DataSource = dttable1.DefaultView;
+            dataGridView2.DataSource = dtReturn.DefaultView;
+            dataGridView3.DataSource = dtReturn2.DefaultView;
+
+            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3);
+
         }
     }
 }

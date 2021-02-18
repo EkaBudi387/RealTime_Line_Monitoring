@@ -11,8 +11,10 @@ namespace WindowsFormsAppFinalTestReject
 {
     public class Pivot
     {
-        public static DataTable GetPivotTable(DataTable tableInput, string columnFieldInput, string rowFieldInput, string valueFieldInput, string nullValueInput, string aggregateMethod)
+        public static DataTable GetPivotTable(DataTable tableDBInput, string columnFieldInput, string rowFieldInput, string valueFieldInput, string nullValueInput, string aggregateMethod)
         {
+            DataTable tableInput = tableDBInput.Copy();
+
             DataTable tableReturner = new DataTable();
             tableReturner.Columns.Add(rowFieldInput);
             List<string> columnHeaderCollector = new List<string>();
@@ -187,26 +189,14 @@ namespace WindowsFormsAppFinalTestReject
 
         }
 
-        public static DataTable GetFixedPivotTable(DataTable tableInput, string columnFieldInput, string rowFieldInput, string valueFieldInput, string nullValueInput, string aggregateMethod)
+        public static DataTable GetFixedPivotTable(DataTable tableDBInput, string columnFieldInput, string rowFieldInput, string valueFieldInput, string nullValueInput, string aggregateMethod, List<string> columnHeaderInput)
         {
+            DataTable tableInput = tableDBInput.Copy();
             DataTable tableReturner = new DataTable();
-            tableReturner.Columns.Add(rowFieldInput);
-            List<string> columnHeaderCollector = new List<string>();
-            columnHeaderCollector.Add("00");
-            columnHeaderCollector.Add("01");
-            columnHeaderCollector.Add("02");
-            columnHeaderCollector.Add("03");
-            columnHeaderCollector.Add("04");
-            columnHeaderCollector.Add("05");
-            columnHeaderCollector.Add("06");
-            columnHeaderCollector.Add("07");
-            columnHeaderCollector.Add("08");
-            columnHeaderCollector.Add("09");
-            for(int i = 10; i<24; i++)
-            {
-                columnHeaderCollector.Add(i.ToString());
-            }
 
+            tableReturner.Columns.Add(rowFieldInput);
+
+            List<string> columnHeaderCollector = new List<string>(columnHeaderInput);
 
             foreach (string a in columnHeaderCollector)
             {

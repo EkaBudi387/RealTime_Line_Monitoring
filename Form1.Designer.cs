@@ -41,6 +41,9 @@ namespace WindowsFormsAppWithDatabase
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
@@ -67,17 +70,17 @@ namespace WindowsFormsAppWithDatabase
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.Black;
             this.textBox1.Location = new System.Drawing.Point(18, 3);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(311, 35);
+            this.textBox1.Size = new System.Drawing.Size(234, 30);
             this.textBox1.TabIndex = 1;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // timer1
             // 
-            this.timer1.Interval = 20000;
+            this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // dataGridView1
@@ -170,6 +173,9 @@ namespace WindowsFormsAppWithDatabase
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.textBox8);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.dataGridView3);
@@ -181,6 +187,42 @@ namespace WindowsFormsAppWithDatabase
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1896, 1026);
             this.panel1.TabIndex = 6;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(379, 8);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(46, 22);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Shift";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "1 of 2 (07:00 - 16:00)",
+            "2 of 2 (16:00 - 01:00)",
+            "1 of 3 (07:00 - 15:00)",
+            "2 of 3 (15:00 - 23:00)",
+            "3 of 3 (23:00 - 07:00)"});
+            this.comboBox1.Location = new System.Drawing.Point(433, 4);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(215, 28);
+            this.comboBox1.TabIndex = 9;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(258, 0);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(81, 40);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "Refresh";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // textBox8
             // 
@@ -399,6 +441,9 @@ namespace WindowsFormsAppWithDatabase
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label7;
     }
 }
 
