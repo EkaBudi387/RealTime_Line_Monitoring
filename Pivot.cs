@@ -167,17 +167,17 @@ namespace WindowsFormsAppFinalTestReject
             return percentagePivotTable;
         }
 
-        public static void GetDataGridCellColor(DataGridView dataGridView)
+        public static void GetDataGridCellColor(DataGridView dataGridView, int highlightQty)
         {
 
-            for (int i = 0; i < dataGridView.Rows.Count - 2; i++)
+            for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
             {
                 for (int j = 0; j < dataGridView.Columns.Count - 1; j++)
                 {
                     try
                     {
                         int k = Convert.ToInt32(dataGridView.Rows[i].Cells[j].Value);
-                        if (k > 4)
+                        if (k >= highlightQty)
                             dataGridView.Rows[i].Cells[j].Style.BackColor = Color.Red;
                     }
                     catch
@@ -191,6 +191,7 @@ namespace WindowsFormsAppFinalTestReject
         
         public static DataTable GetFixedPivotTable(DataTable tableDBInput, string columnFieldInput, string rowFieldInput, string valueFieldInput, string nullValueInput, string aggregateMethod, List<string> columnHeaderInput)
         {
+            
             DataTable tableInput = tableDBInput.Copy();
             DataTable tableReturner = new DataTable();
 
@@ -299,14 +300,17 @@ namespace WindowsFormsAppFinalTestReject
             return tableReturner;
         }
 
-        public static void GetDivisionCellFormat(DataGridView dataGridView1, DataGridView dataGridView2)
+        public static void GetDivisionCellFormat(DataGridView dataGridView1, DataGridView dataGridView2, int rejectHighlightQty)
         {
-            
+            GetDataGridCellColor(dataGridView1, rejectHighlightQty);
+
             for (int i = 0; i< dataGridView1.RowCount; i++)
             {
                 for(int j = 1; j < dataGridView1.ColumnCount; j++)
                 {
+                    
                     dataGridView1.Rows[i].Cells[j].Value = dataGridView1.Rows[i].Cells[j].Value.ToString() + "/" + dataGridView2.Rows[i].Cells[j].Value.ToString();
+                    
                 }
             }
         }

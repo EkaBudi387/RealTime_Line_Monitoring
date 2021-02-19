@@ -25,6 +25,8 @@ namespace WindowsFormsAppWithDatabase
 
         MySqlConnection connection;
 
+        int rejectHighlightQty;
+
         string sql1 =
 
                 "select Time, Station, SA_SN, SA_PN, Line, State " +
@@ -69,44 +71,44 @@ namespace WindowsFormsAppWithDatabase
 
                 "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
                 "from sfcs_alstripping " +
-                "where time >= now() - interval 1 day and State NOT LIKE \"OK\" " +
+                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" " +
 
                 "UNION\n" +
 
                 "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
                 "from sfcs_spotsoldering " +
-                "where time >= now() - interval 1 day and State NOT LIKE \"OK\" " +
+                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" " +
 
                 "UNION\n" +
 
                 "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
                 "from sfcs_solderinginspection " +
-                "where time >= now() - interval 1 day and State NOT LIKE \"OK\" " +
+                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" " +
 
                 "UNION\n" +
 
                 "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
                 "from sfcs_semi_fgtest " +
-                "where time >= now() - interval 1 day and State NOT LIKE \"OK\" " +
+                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" " +
 
                 "UNION\n" +
 
                 "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
                 "from sfcs_backshellassembly " +
-                "where time >= now() - interval 1 day and State NOT LIKE \"OK\" " +
+                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" " +
 
                 "UNION\n" +
 
                 "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
                 "from sfcs_fgtest " +
-                "where time >= now() - interval 1 day and State NOT LIKE \"OK\" ";
+                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" ";
 
 
         string sql3 =
 
                 "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
                 "from sfcs_fgtest " +
-                "where time >= now() - interval 1 day ";
+                "where time >= now() - interval 12 hour ";
 
         public Form1()
         {
@@ -133,6 +135,7 @@ namespace WindowsFormsAppWithDatabase
             reader.Close();
 
             comboBox2.Text = "5 min";
+            comboBox3.Text = "3";
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -149,7 +152,11 @@ namespace WindowsFormsAppWithDatabase
             dataGridView2.DataSource = dtReturn.DefaultView;
             dataGridView3.DataSource = dtReturn2.DefaultView;
 
-            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3);
+            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3, rejectHighlightQty);
+
+            dataGridView3.DataSource = null;
+
+            dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Grand Total").DefaultView;
 
             textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
         }
@@ -186,6 +193,8 @@ namespace WindowsFormsAppWithDatabase
                 dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
                 dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
                 dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
+
+                textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
             }
 
         }
@@ -213,7 +222,12 @@ namespace WindowsFormsAppWithDatabase
             dataGridView1.DataSource = dttable1.DefaultView;
             dataGridView2.DataSource = dtReturn.DefaultView;
             dataGridView3.DataSource = dtReturn2.DefaultView;
-            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3);
+
+            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3, rejectHighlightQty);
+
+            dataGridView3.DataSource = null;
+
+            dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Grand Total").DefaultView;
 
             textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
         }
@@ -221,7 +235,13 @@ namespace WindowsFormsAppWithDatabase
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (comboBox1.Text == "1 of 2 (07:00 - 16:00)")
+            TimeSpan breakShiftMorning = new TimeSpan(07, 00, 00);
+            TimeSpan breakShiftAfternoon2 = new TimeSpan(16, 00, 00);
+            TimeSpan breakShiftAfternoon3 = new TimeSpan(15, 00, 00);
+            TimeSpan breakShiftNight2 = new TimeSpan(01, 00, 00);
+            TimeSpan breakShiftNight3 = new TimeSpan(23, 00, 00);
+
+            if (comboBox1.Text == "2-Shift" &&  DateTime.Now.Hour >= breakShiftMorning.Hours && DateTime.Now.Hour < breakShiftAfternoon2.Hours)
             {
 
                 columnHeaderInput.Clear();
@@ -236,8 +256,9 @@ namespace WindowsFormsAppWithDatabase
                 columnHeaderInput.Add("15");
 
             }
+            
 
-            else if(comboBox1.Text == "2 of 2 (16:00 - 01:00)")
+            else if(comboBox1.Text == "2-Shift" && (DateTime.Now.Hour >= breakShiftAfternoon2.Hours || DateTime.Now.Hour < breakShiftNight2.Hours))
             {
                 columnHeaderInput.Clear();
                 columnHeaderInput.Add("16");
@@ -251,7 +272,7 @@ namespace WindowsFormsAppWithDatabase
                 columnHeaderInput.Add("00");
 
             }
-            else if (comboBox1.Text == "1 of 3 (07:00 - 15:00)")
+            else if (comboBox1.Text == "3-Shift" && DateTime.Now.Hour >= breakShiftMorning.Hours && DateTime.Now.Hour < breakShiftAfternoon3.Hours)
             {
                 columnHeaderInput.Clear();
                 columnHeaderInput.Add("07");
@@ -264,7 +285,7 @@ namespace WindowsFormsAppWithDatabase
                 columnHeaderInput.Add("14");
 
             }
-            else if (comboBox1.Text == "2 of 3 (15:00 - 23:00)")
+            else if (comboBox1.Text == "3-Shift" && DateTime.Now.Hour >= breakShiftAfternoon3.Hours && DateTime.Now.Hour < breakShiftNight3.Hours)
             {
                 columnHeaderInput.Clear();
                 columnHeaderInput.Add("15");
@@ -302,7 +323,11 @@ namespace WindowsFormsAppWithDatabase
             dataGridView2.DataSource = dtReturn.DefaultView;
             dataGridView3.DataSource = dtReturn2.DefaultView;
 
-            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3);
+            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3, rejectHighlightQty);
+
+            dataGridView3.DataSource = null;
+
+            dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Grand Total").DefaultView;
 
         }
 
@@ -332,6 +357,11 @@ namespace WindowsFormsAppWithDatabase
             {
                 timer1.Interval = 3600000;
             }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            rejectHighlightQty = Convert.ToInt32(comboBox3.Text);
         }
     }
 }
