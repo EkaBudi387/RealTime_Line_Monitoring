@@ -101,11 +101,11 @@ namespace WindowsFormsAppWithDatabase
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Location = new System.Drawing.Point(1057, 97);
+            this.dataGridView1.Location = new System.Drawing.Point(943, 97);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridView1.Size = new System.Drawing.Size(829, 783);
+            this.dataGridView1.Size = new System.Drawing.Size(943, 783);
             this.dataGridView1.TabIndex = 0;
             // 
             // dataGridView2
@@ -130,7 +130,7 @@ namespace WindowsFormsAppWithDatabase
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.RowHeadersWidth = 62;
-            this.dataGridView2.Size = new System.Drawing.Size(1020, 383);
+            this.dataGridView2.Size = new System.Drawing.Size(903, 383);
             this.dataGridView2.TabIndex = 3;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
@@ -139,11 +139,11 @@ namespace WindowsFormsAppWithDatabase
             this.textBox2.BackColor = System.Drawing.Color.White;
             this.textBox2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.Color.Black;
-            this.textBox2.Location = new System.Drawing.Point(1057, 56);
+            this.textBox2.Location = new System.Drawing.Point(943, 56);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(829, 35);
+            this.textBox2.Size = new System.Drawing.Size(943, 35);
             this.textBox2.TabIndex = 4;
-            this.textBox2.Text = "Latest 20 Rejects All Stations";
+            this.textBox2.Text = "Latest 20 Rejects All HS Stations";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // dataGridView3
@@ -168,7 +168,7 @@ namespace WindowsFormsAppWithDatabase
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowHeadersVisible = false;
             this.dataGridView3.RowHeadersWidth = 62;
-            this.dataGridView3.Size = new System.Drawing.Size(1020, 378);
+            this.dataGridView3.Size = new System.Drawing.Size(903, 378);
             this.dataGridView3.TabIndex = 5;
             // 
             // panel1
@@ -231,9 +231,9 @@ namespace WindowsFormsAppWithDatabase
             this.textBox8.ForeColor = System.Drawing.Color.Black;
             this.textBox8.Location = new System.Drawing.Point(18, 56);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(1020, 35);
+            this.textBox8.Size = new System.Drawing.Size(903, 35);
             this.textBox8.TabIndex = 7;
-            this.textBox8.Text = "Hourly Line Reject";
+            this.textBox8.Text = "Hourly Line Monitoring [ Reject/Output ]";
             this.textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel2
@@ -254,7 +254,7 @@ namespace WindowsFormsAppWithDatabase
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(631, 111);
+            this.panel2.Location = new System.Drawing.Point(485, 111);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(407, 344);
             this.panel2.TabIndex = 6;

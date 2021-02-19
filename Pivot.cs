@@ -188,7 +188,7 @@ namespace WindowsFormsAppFinalTestReject
             }
 
         }
-
+        
         public static DataTable GetFixedPivotTable(DataTable tableDBInput, string columnFieldInput, string rowFieldInput, string valueFieldInput, string nullValueInput, string aggregateMethod, List<string> columnHeaderInput)
         {
             DataTable tableInput = tableDBInput.Copy();
@@ -280,7 +280,7 @@ namespace WindowsFormsAppFinalTestReject
                         dataRowX["Grand Total"] = Convert.ToUInt16(dataRowX["Grand Total"]) + Convert.ToUInt16(dataRowX[columnHeader]);
                 }
             }
-
+            
             DataRow newRowForGrandTotal = tableReturner.NewRow();
             newRowForGrandTotal[0] = "Grand Total";
             columnHeaderCollector.Add("Grand Total");
