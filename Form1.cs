@@ -62,7 +62,7 @@ namespace WindowsFormsAppWithDatabase
                 "where time >= now() - interval 4 day and State NOT LIKE \"OK\" " +
 
                 "order by Time desc " +
-                "limit 20";
+                "limit 100";
 
 
         string sql2 =
@@ -131,6 +131,8 @@ namespace WindowsFormsAppWithDatabase
             textBox7.Text = values[4];
 
             reader.Close();
+
+            comboBox2.Text = "5 min";
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -302,6 +304,34 @@ namespace WindowsFormsAppWithDatabase
 
             Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3);
 
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.Text == "3 min")
+            {
+                timer1.Interval = 180000;
+            }
+            else if (comboBox2.Text == "5 min")
+            {
+                timer1.Interval = 300000;
+            }
+            else if (comboBox2.Text == "10 min")
+            {
+                timer1.Interval = 600000;
+            }
+            else if (comboBox2.Text == "20 min")
+            {
+                timer1.Interval = 1200000;
+            }
+            else if (comboBox2.Text == "30 min")
+            {
+                timer1.Interval = 1800000;
+            }
+            else
+            {
+                timer1.Interval = 3600000;
+            }
         }
     }
 }

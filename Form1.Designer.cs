@@ -60,6 +60,8 @@ namespace WindowsFormsAppWithDatabase
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
@@ -143,7 +145,7 @@ namespace WindowsFormsAppWithDatabase
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(943, 35);
             this.textBox2.TabIndex = 4;
-            this.textBox2.Text = "Latest 20 Rejects All HS Stations";
+            this.textBox2.Text = "Latest Rejects All HS Stations";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // dataGridView3
@@ -173,6 +175,8 @@ namespace WindowsFormsAppWithDatabase
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.comboBox2);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.button3);
@@ -192,7 +196,7 @@ namespace WindowsFormsAppWithDatabase
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(379, 8);
+            this.label7.Location = new System.Drawing.Point(585, 8);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(46, 22);
             this.label7.TabIndex = 10;
@@ -208,7 +212,7 @@ namespace WindowsFormsAppWithDatabase
             "1 of 3 (07:00 - 15:00)",
             "2 of 3 (15:00 - 23:00)",
             "3 of 3 (23:00 - 07:00)"});
-            this.comboBox1.Location = new System.Drawing.Point(433, 4);
+            this.comboBox1.Location = new System.Drawing.Point(636, 4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(215, 28);
             this.comboBox1.TabIndex = 9;
@@ -216,9 +220,9 @@ namespace WindowsFormsAppWithDatabase
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(258, 0);
+            this.button3.Location = new System.Drawing.Point(421, 1);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(81, 40);
+            this.button3.Size = new System.Drawing.Size(81, 38);
             this.button3.TabIndex = 8;
             this.button3.Text = "Refresh";
             this.button3.UseVisualStyleBackColor = true;
@@ -393,6 +397,34 @@ namespace WindowsFormsAppWithDatabase
             this.label1.TabIndex = 0;
             this.label1.Text = "Server";
             // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "3 min",
+            "5 min",
+            "10 min",
+            "20 min",
+            "30 min",
+            "60 min"});
+            this.comboBox2.Location = new System.Drawing.Point(325, 3);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(92, 30);
+            this.comboBox2.TabIndex = 11;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(257, 7);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(68, 22);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Interval";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -444,6 +476,8 @@ namespace WindowsFormsAppWithDatabase
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label8;
     }
 }
 
