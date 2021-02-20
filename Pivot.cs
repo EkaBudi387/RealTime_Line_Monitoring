@@ -11,41 +11,54 @@ namespace WindowsFormsAppFinalTestReject
         public static DataTable GetPivotTable(DataTable tableDBInput, string columnFieldInput, string rowFieldInput, string valueFieldInput, string nullValueInput, string aggregateMethod)
         {
             DataTable tableInput = tableDBInput.Copy();
-
             DataTable tableReturner = new DataTable();
+
             tableReturner.Columns.Add(rowFieldInput);
+
             List<string> columnHeaderCollector = new List<string>();
 
             foreach (DataRow dataRow in tableInput.Rows)
             {
                 string columnHeader = dataRow[columnFieldInput].ToString();
+
                 if (!columnHeaderCollector.Contains(columnHeader))
                 {
                     columnHeaderCollector.Add(columnHeader);
                 }
+
             }
+
             columnHeaderCollector.Sort((x, y) => x.CompareTo(y));
+
             foreach (string a in columnHeaderCollector)
             {
                 tableReturner.Columns.Add(a);
             }
+
             if (rowFieldInput != "" && valueFieldInput != "")
             {
                 List<string> rowHeaderCollector = new List<string>();
+
                 foreach (DataRow dataRow in tableInput.Rows)
                 {
                     string rowHeader = dataRow[rowFieldInput].ToString();
+
                     if (!rowHeaderCollector.Contains(rowHeader))
                         rowHeaderCollector.Add(rowHeader);
                 }
+
                 foreach (string rowHeaderInsideCollector in rowHeaderCollector)
                 {
                     DataRow rowToAppend = tableReturner.NewRow();
+
                     rowToAppend[0] = rowHeaderInsideCollector;
+
                     DataRow[] filteredTableInput = tableInput.Select(rowFieldInput + "='" + rowHeaderInsideCollector + "'");
+
                     foreach (DataRow dataRow in filteredTableInput)
                     {
                         string columnHeaderPointer = dataRow[columnFieldInput].ToString();
+
                         foreach (DataColumn dataColumn in tableReturner.Columns)
                         {
                             if (dataColumn.ColumnName == columnHeaderPointer)
@@ -61,6 +74,7 @@ namespace WindowsFormsAppFinalTestReject
                                         rowToAppend[columnHeaderPointer] = 1;
                                     }
                                 }
+
                                 else if (aggregateMethod == "Sum")
                                 {
                                     try
@@ -72,6 +86,7 @@ namespace WindowsFormsAppFinalTestReject
                                         rowToAppend[columnHeaderPointer] = Convert.ToDecimal(rowToAppend[valueFieldInput]); ;
                                     }
                                 }
+
                                 else
                                 {
                                     throw new Exception("Not an aggregation method");
@@ -79,6 +94,7 @@ namespace WindowsFormsAppFinalTestReject
                             }
                         }
                     }
+
                     tableReturner.Rows.Add(rowToAppend);
                 }
             }
@@ -106,19 +122,25 @@ namespace WindowsFormsAppFinalTestReject
                     if (columnHeader != rowFieldInput && dataRowX[columnHeader].ToString() != "")
                         dataRowX["Grand Total"] = Convert.ToUInt16(dataRowX["Grand Total"]) + Convert.ToUInt16(dataRowX[columnHeader]);
                 }
+
             }
 
             DataRow newRowForGrandTotal = tableReturner.NewRow();
+
             newRowForGrandTotal[0] = "Grand Total";
+
             columnHeaderCollector.Add("Grand Total");
+
             foreach (string columnHeader in columnHeaderCollector)
             {
                 newRowForGrandTotal[columnHeader] = 0;
+
                 foreach (DataRow dataRowX in tableReturner.Rows)
                 {
                     if (columnHeader != rowFieldInput && dataRowX[columnHeader].ToString() != "")
                         newRowForGrandTotal[columnHeader] = Convert.ToUInt16(newRowForGrandTotal[columnHeader]) + Convert.ToUInt16(dataRowX[columnHeader]);
                 }
+
             }
 
             tableReturner.Rows.Add(newRowForGrandTotal);
@@ -133,14 +155,10 @@ namespace WindowsFormsAppFinalTestReject
 
             int grandTotalDevider = Convert.ToInt32(percentagePivotTable.Rows[percentagePivotTable.Rows.Count - 1]["Grand Total"]);
 
-
             foreach (DataRow dataRowInTableInput in percentagePivotTable.Rows)
             {
-
                 foreach (DataColumn dataColumnInTableReturn in percentagePivotTable.Columns)
-
                 {
-
                     try
                     {
                         if (percentageMethod == "Grand Total")
@@ -154,6 +172,7 @@ namespace WindowsFormsAppFinalTestReject
                             dataRowInTableInput[dataColumnInTableReturn.ColumnName] = decimal.Round(Convert.ToDecimal(dataRowInTableInput[dataColumnInTableReturn.ColumnName]) / rowTotalDevider * 100, 2).ToString() + "%";
                         }
                     }
+
                     catch
                     {
 
@@ -174,6 +193,7 @@ namespace WindowsFormsAppFinalTestReject
                     try
                     {
                         int k = Convert.ToInt32(dataGridView.Rows[i].Cells[j].Value);
+
                         if (k >= highlightQty)
                             dataGridView.Rows[i].Cells[j].Style.BackColor = Color.Red;
                     }
@@ -183,7 +203,6 @@ namespace WindowsFormsAppFinalTestReject
                     }
                 }
             }
-
         }
 
         public static DataTable GetFixedPivotTable(DataTable tableDBInput, string columnFieldInput, string rowFieldInput, string valueFieldInput, string nullValueInput, string aggregateMethod, List<string> columnHeaderInput)
@@ -203,6 +222,7 @@ namespace WindowsFormsAppFinalTestReject
             if (rowFieldInput != "" && valueFieldInput != "")
             {
                 List<string> rowHeaderCollector = new List<string>();
+
                 rowHeaderCollector.Add("L01");
                 rowHeaderCollector.Add("L02");
                 rowHeaderCollector.Add("L03");
@@ -212,11 +232,15 @@ namespace WindowsFormsAppFinalTestReject
                 foreach (string rowHeaderInsideCollector in rowHeaderCollector)
                 {
                     DataRow rowToAppend = tableReturner.NewRow();
+
                     rowToAppend[0] = rowHeaderInsideCollector;
+
                     DataRow[] filteredTableInput = tableInput.Select(rowFieldInput + "='" + rowHeaderInsideCollector + "'");
+
                     foreach (DataRow dataRow in filteredTableInput)
                     {
                         string columnHeaderPointer = dataRow[columnFieldInput].ToString();
+
                         foreach (DataColumn dataColumn in tableReturner.Columns)
                         {
                             if (dataColumn.ColumnName == columnHeaderPointer)
@@ -232,6 +256,7 @@ namespace WindowsFormsAppFinalTestReject
                                         rowToAppend[columnHeaderPointer] = 1;
                                     }
                                 }
+
                                 else if (aggregateMethod == "Sum")
                                 {
                                     try
@@ -243,6 +268,7 @@ namespace WindowsFormsAppFinalTestReject
                                         rowToAppend[columnHeaderPointer] = Convert.ToDecimal(rowToAppend[valueFieldInput]); ;
                                     }
                                 }
+
                                 else
                                 {
                                     throw new Exception("Not an aggregation method");
@@ -250,6 +276,7 @@ namespace WindowsFormsAppFinalTestReject
                             }
                         }
                     }
+
                     tableReturner.Rows.Add(rowToAppend);
                 }
             }
@@ -280,11 +307,15 @@ namespace WindowsFormsAppFinalTestReject
             }
 
             DataRow newRowForGrandTotal = tableReturner.NewRow();
+
             newRowForGrandTotal[0] = "Grand Total";
+
             columnHeaderCollector.Add("Grand Total");
+
             foreach (string columnHeader in columnHeaderCollector)
             {
                 newRowForGrandTotal[columnHeader] = 0;
+
                 foreach (DataRow dataRowX in tableReturner.Rows)
                 {
                     if (columnHeader != rowFieldInput && dataRowX[columnHeader].ToString() != "")

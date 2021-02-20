@@ -22,88 +22,9 @@ namespace WindowsFormsAppWithDatabase
 
         int rejectHighlightQty;
 
-        string sql1 =
-
-                "select Time, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_alstripping " +
-                "where time >= now() - interval 4 day and State NOT LIKE \"OK\" " +
-
-                "UNION\n" +
-
-                "select Time, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_spotsoldering " +
-                "where time >= now() - interval 4 day and State NOT LIKE \"OK\" " +
-
-                "UNION\n" +
-
-                "select Time, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_solderinginspection " +
-                "where time >= now() - interval 4 day and State NOT LIKE \"OK\" " +
-
-                "UNION\n" +
-
-                "select Time, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_semi_fgtest " +
-                "where time >= now() - interval 4 day and State NOT LIKE \"OK\" " +
-
-                "UNION\n" +
-
-                "select Time, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_backshellassembly " +
-                "where time >= now() - interval 4 day and State NOT LIKE \"OK\" " +
-
-                "UNION\n" +
-
-                "select Time, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_fgtest " +
-                "where time >= now() - interval 4 day and State NOT LIKE \"OK\" " +
-
-                "order by Time desc " +
-                "limit 100";
-
-
-        string sql2 =
-
-                "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_alstripping " +
-                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" " +
-
-                "UNION\n" +
-
-                "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_spotsoldering " +
-                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" " +
-
-                "UNION\n" +
-
-                "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_solderinginspection " +
-                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" " +
-
-                "UNION\n" +
-
-                "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_semi_fgtest " +
-                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" " +
-
-                "UNION\n" +
-
-                "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_backshellassembly " +
-                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" " +
-
-                "UNION\n" +
-
-                "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_fgtest " +
-                "where time >= now() - interval 12 hour and State NOT LIKE \"OK\" ";
-
-
-        string sql3 =
-
-                "select Time, DATE_FORMAT(Time, '%H') as Date, Station, SA_SN, SA_PN, Line, State " +
-                "from sfcs_fgtest " +
-                "where time >= now() - interval 12 hour ";
+        string sql1 = Form2.sql1;
+        string sql2 = Form2.sql2;
+        string sql3 = Form2.sql3;
 
         public Form1()
         {

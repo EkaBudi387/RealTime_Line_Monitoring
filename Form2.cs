@@ -13,7 +13,14 @@ namespace WindowsFormsAppFinalTestReject
 
         public static MySqlConnection connection;
 
+        public static string sql1;
+        public static string sql2;
+        public static string sql3;
+
         string path = Path.Combine(Directory.GetCurrentDirectory(), "SetUpConnection.csv");
+        string path_sql1 = Path.Combine(Directory.GetCurrentDirectory(), "sql1.txt");
+        string path_sql2 = Path.Combine(Directory.GetCurrentDirectory(), "sql2.txt");
+        string path_sql3 = Path.Combine(Directory.GetCurrentDirectory(), "sql3.txt");
 
         public Form2()
         {
@@ -35,12 +42,13 @@ namespace WindowsFormsAppFinalTestReject
 
             if (connection.State == ConnectionState.Open)
             {
-                Form1 f1 = new Form1();
-
-                f1.Show();
+                getSQLCommand();
 
                 Hide();
 
+                Form1 f1 = new Form1();
+
+                f1.Show();
             }
 
         }
@@ -66,6 +74,23 @@ namespace WindowsFormsAppFinalTestReject
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        public void getSQLCommand()
+        {
+            StreamReader reader;
+
+            reader = new StreamReader(path_sql1);
+            sql1 = reader.ReadToEnd();
+            reader.Close();
+
+            reader = new StreamReader(path_sql2);
+            sql2 = reader.ReadToEnd();
+            reader.Close();
+            
+            reader = new StreamReader(path_sql3);
+            sql3 = reader.ReadToEnd();
+            reader.Close();
         }
     }
 }
