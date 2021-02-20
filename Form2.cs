@@ -19,6 +19,8 @@ namespace WindowsFormsAppFinalTestReject
 
         public static MySqlConnection connection;
 
+        string path = Path.Combine(Directory.GetCurrentDirectory(), "SetUpConnection.csv");
+
         public Form2()
         {
             InitializeComponent();
@@ -29,7 +31,7 @@ namespace WindowsFormsAppFinalTestReject
 
             if (checkBox1.Checked == true)
             {
-                StreamWriter writer = new StreamWriter(@"C:\Users\wayan.eka\source\repos\WindowsFormsAppFinalTestReject\SetUpConnection.csv");
+                StreamWriter writer = new StreamWriter(path);
 
                 writer.WriteLine(textBox1.Text + ',' + textBox2.Text + ',' + textBox3.Text + ',' + textBox4.Text + ',' + textBox5.Text);
                 writer.Close();
@@ -51,7 +53,8 @@ namespace WindowsFormsAppFinalTestReject
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            StreamReader reader = new StreamReader(@"C:\Users\wayan.eka\source\repos\WindowsFormsAppFinalTestReject\SetUpConnection.csv");
+
+            StreamReader reader = new StreamReader(path);
 
             var line = reader.ReadLine();
             var values = line.Split(',');
