@@ -15,15 +15,13 @@ namespace WindowsFormsAppWithDatabase
     public partial class Form1 : Form
     {
 
-        List <Panel> listPanel = new List <Panel>();
-
         List<string> columnHeaderInput = new List<string>();
 
         DataTable dttable1;
         DataTable dttable2;
         DataTable dttable3;
 
-        MySqlConnection connection;
+        MySqlConnection connection = Form2.connection;
 
         int rejectHighlightQty;
 
@@ -118,24 +116,17 @@ namespace WindowsFormsAppWithDatabase
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            listPanel.Add(panel1);
-            listPanel.Add(panel2);
-
-            StreamReader reader = new StreamReader(@"C:\Users\wayan.eka\source\repos\WindowsFormsAppFinalTestReject\SetUpConnection.csv");
-
-            var line = reader.ReadLine();
-            var values = line.Split(',');
-
-            textBox3.Text = values[0];
-            textBox4.Text = values[1];
-            textBox5.Text = values[2];
-            textBox6.Text = values[3];
-            textBox7.Text = values[4];
-
-            reader.Close();
-
             comboBox2.Text = "5 min";
             comboBox3.Text = "3";
+
+            textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
+
+            dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
+            dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
+            dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
+
+            timer1.Enabled = true;
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -159,54 +150,6 @@ namespace WindowsFormsAppWithDatabase
             dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Grand Total").DefaultView;
 
             textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            if(checkBox1.Checked == true)
-            {
-                StreamWriter writer = new StreamWriter(@"C:\Users\wayan.eka\source\repos\WindowsFormsAppFinalTestReject\SetUpConnection.csv");
-                writer.WriteLine(textBox3.Text + ',' + textBox4.Text + ',' + textBox5.Text + ',' + textBox6.Text + ',' + textBox7.Text);
-                writer.Close();
-            }
-
-            connection = TestToConnectMySQLServer.OpenConnection(textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text);
-
-
-            if (connection.State == ConnectionState.Open)
-            {
-                listPanel[1].SendToBack();
-
-                timer1.Enabled = true;
-
-                dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
-                dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
-                dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
-
-                textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
-            }
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -362,6 +305,11 @@ namespace WindowsFormsAppWithDatabase
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             rejectHighlightQty = Convert.ToInt32(comboBox3.Text);
+        }
+
+        private void buttonExitWindow(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
