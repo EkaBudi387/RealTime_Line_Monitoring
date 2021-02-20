@@ -1,7 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
-using System.IO;
 using System.Windows.Forms;
 
 namespace WindowsFormsAppWithDatabase
@@ -36,15 +35,15 @@ namespace WindowsFormsAppWithDatabase
 
             return connection;
         }
-        
+
         public static DataTable FillData(string sql, MySqlConnection connection)
         {
             DataTable table = new DataTable();
-                
+
             MySqlCommand command = new MySqlCommand(sql, connection);
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             adapter.SelectCommand = command;
-            adapter.Fill(table);    
+            adapter.Fill(table);
 
             return table;
         }

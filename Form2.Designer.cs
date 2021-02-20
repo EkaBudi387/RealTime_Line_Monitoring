@@ -47,7 +47,7 @@ namespace WindowsFormsAppFinalTestReject
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 16);
+            this.label1.Location = new System.Drawing.Point(21, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 20);
             this.label1.TabIndex = 0;
@@ -56,7 +56,7 @@ namespace WindowsFormsAppFinalTestReject
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 48);
+            this.label2.Location = new System.Drawing.Point(21, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 20);
             this.label2.TabIndex = 1;
@@ -74,7 +74,7 @@ namespace WindowsFormsAppFinalTestReject
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 121);
+            this.label4.Location = new System.Drawing.Point(21, 117);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 20);
             this.label4.TabIndex = 3;
@@ -83,7 +83,7 @@ namespace WindowsFormsAppFinalTestReject
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 154);
+            this.label5.Location = new System.Drawing.Point(21, 150);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 20);
             this.label5.TabIndex = 4;
@@ -105,14 +105,14 @@ namespace WindowsFormsAppFinalTestReject
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(129, 81);
+            this.textBox3.Location = new System.Drawing.Point(129, 79);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(279, 26);
             this.textBox3.TabIndex = 7;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(129, 118);
+            this.textBox4.Location = new System.Drawing.Point(129, 112);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(279, 26);
             this.textBox4.TabIndex = 8;
@@ -120,7 +120,7 @@ namespace WindowsFormsAppFinalTestReject
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(129, 151);
+            this.textBox5.Location = new System.Drawing.Point(129, 145);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(279, 26);
             this.textBox5.TabIndex = 9;

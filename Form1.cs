@@ -1,17 +1,14 @@
-﻿using Org.BouncyCastle.Utilities.Zlib;
+﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
 using WindowsFormsAppFinalTestReject;
-using MySql.Data.MySqlClient;
-using System.Collections.Generic;
-using System.IO;
 
 namespace WindowsFormsAppWithDatabase
 {
 
-  
+
     public partial class Form1 : Form
     {
 
@@ -184,7 +181,7 @@ namespace WindowsFormsAppWithDatabase
             TimeSpan breakShiftNight2 = new TimeSpan(01, 00, 00);
             TimeSpan breakShiftNight3 = new TimeSpan(23, 00, 00);
 
-            if (comboBox1.Text == "2-Shift" &&  DateTime.Now.Hour >= breakShiftMorning.Hours && DateTime.Now.Hour < breakShiftAfternoon2.Hours)
+            if (comboBox1.Text == "2-Shift" && DateTime.Now.Hour >= breakShiftMorning.Hours && DateTime.Now.Hour < breakShiftAfternoon2.Hours)
             {
 
                 columnHeaderInput.Clear();
@@ -199,9 +196,9 @@ namespace WindowsFormsAppWithDatabase
                 columnHeaderInput.Add("15");
 
             }
-            
 
-            else if(comboBox1.Text == "2-Shift" && (DateTime.Now.Hour >= breakShiftAfternoon2.Hours || DateTime.Now.Hour < breakShiftNight2.Hours))
+
+            else if (comboBox1.Text == "2-Shift" && (DateTime.Now.Hour >= breakShiftAfternoon2.Hours || DateTime.Now.Hour < breakShiftNight2.Hours))
             {
                 columnHeaderInput.Clear();
                 columnHeaderInput.Add("16");

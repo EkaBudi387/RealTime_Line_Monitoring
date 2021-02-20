@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsAppFinalTestReject
@@ -18,7 +15,7 @@ namespace WindowsFormsAppFinalTestReject
             DataTable tableReturner = new DataTable();
             tableReturner.Columns.Add(rowFieldInput);
             List<string> columnHeaderCollector = new List<string>();
-            
+
             foreach (DataRow dataRow in tableInput.Rows)
             {
                 string columnHeader = dataRow[columnFieldInput].ToString();
@@ -188,10 +185,10 @@ namespace WindowsFormsAppFinalTestReject
             }
 
         }
-        
+
         public static DataTable GetFixedPivotTable(DataTable tableDBInput, string columnFieldInput, string rowFieldInput, string valueFieldInput, string nullValueInput, string aggregateMethod, List<string> columnHeaderInput)
         {
-            
+
             DataTable tableInput = tableDBInput.Copy();
             DataTable tableReturner = new DataTable();
 
@@ -281,7 +278,7 @@ namespace WindowsFormsAppFinalTestReject
                         dataRowX["Grand Total"] = Convert.ToUInt16(dataRowX["Grand Total"]) + Convert.ToUInt16(dataRowX[columnHeader]);
                 }
             }
-            
+
             DataRow newRowForGrandTotal = tableReturner.NewRow();
             newRowForGrandTotal[0] = "Grand Total";
             columnHeaderCollector.Add("Grand Total");
@@ -304,13 +301,13 @@ namespace WindowsFormsAppFinalTestReject
         {
             GetDataGridCellColor(dataGridView1, rejectHighlightQty);
 
-            for (int i = 0; i< dataGridView1.RowCount; i++)
+            for (int i = 0; i < dataGridView1.RowCount; i++)
             {
-                for(int j = 1; j < dataGridView1.ColumnCount; j++)
+                for (int j = 1; j < dataGridView1.ColumnCount; j++)
                 {
-                    
+
                     dataGridView1.Rows[i].Cells[j].Value = dataGridView1.Rows[i].Cells[j].Value.ToString() + "/" + dataGridView2.Rows[i].Cells[j].Value.ToString();
-                    
+
                 }
             }
         }
