@@ -1,4 +1,4 @@
-# WindowsFormsAppWithDatabase
+# RealTime_Line_Monitoring
 First this code will open connection to MySQL Database.
 You are required to set up connection strings once that can be remembered later.
 Your stored .txt user ID and password are encripted with System.Security.Cryptography.
