@@ -56,7 +56,7 @@ namespace WindowsFormsAppFinalTestReject
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 51);
+            this.label2.Location = new System.Drawing.Point(21, 84);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 20);
             this.label2.TabIndex = 1;
@@ -65,7 +65,7 @@ namespace WindowsFormsAppFinalTestReject
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 84);
+            this.label3.Location = new System.Drawing.Point(21, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 20);
             this.label3.TabIndex = 2;
@@ -98,14 +98,15 @@ namespace WindowsFormsAppFinalTestReject
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(129, 46);
+            this.textBox2.Location = new System.Drawing.Point(129, 79);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(279, 26);
             this.textBox2.TabIndex = 6;
+            this.textBox2.UseSystemPasswordChar = true;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(129, 79);
+            this.textBox3.Location = new System.Drawing.Point(129, 46);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(279, 26);
             this.textBox3.TabIndex = 7;
