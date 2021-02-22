@@ -35,6 +35,7 @@ namespace WindowsFormsAppWithDatabase
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -52,10 +53,15 @@ namespace WindowsFormsAppWithDatabase
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -116,12 +122,12 @@ namespace WindowsFormsAppWithDatabase
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.Location = new System.Drawing.Point(18, 519);
+            this.dataGridView1.Location = new System.Drawing.Point(18, 508);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridView1.Size = new System.Drawing.Size(1856, 467);
+            this.dataGridView1.Size = new System.Drawing.Size(1390, 494);
             this.dataGridView1.TabIndex = 0;
             // 
             // textBox1
@@ -269,7 +275,7 @@ namespace WindowsFormsAppWithDatabase
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(931, 33);
             this.label10.TabIndex = 13;
-            this.label10.Text = "Hourly %Productivity";
+            this.label10.Text = "Hourly SA %Productivity";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label11
@@ -283,7 +289,7 @@ namespace WindowsFormsAppWithDatabase
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(903, 33);
             this.label11.TabIndex = 15;
-            this.label11.Text = "Hourly Line Monitoring [ reject/output ]\r\n";
+            this.label11.Text = "Hourly NVIDIA Line Monitoring [ reject/output ]\r\n";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label12
@@ -293,15 +299,18 @@ namespace WindowsFormsAppWithDatabase
             this.label12.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(18, 483);
+            this.label12.Location = new System.Drawing.Point(18, 472);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(1856, 33);
+            this.label12.Size = new System.Drawing.Size(1390, 33);
             this.label12.TabIndex = 16;
-            this.label12.Text = "Latest Reject All HS Station";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label12.Text = "Latest Reject of All HS Station";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.dataGridView4);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label10);
@@ -318,8 +327,63 @@ namespace WindowsFormsAppWithDatabase
             this.panel1.Controls.Add(this.dataGridView2);
             this.panel1.Location = new System.Drawing.Point(1, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1896, 989);
+            this.panel1.Size = new System.Drawing.Size(1896, 1005);
             this.panel1.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(1702, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(172, 32);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Time:";
+            // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 1000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // dataGridView4
+            // 
+            this.dataGridView4.AllowUserToAddRows = false;
+            this.dataGridView4.AllowUserToDeleteRows = false;
+            this.dataGridView4.AllowUserToResizeColumns = false;
+            this.dataGridView4.AllowUserToResizeRows = false;
+            this.dataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView4.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView4.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView4.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridView4.Location = new System.Drawing.Point(1422, 508);
+            this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.ReadOnly = true;
+            this.dataGridView4.RowHeadersVisible = false;
+            this.dataGridView4.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridView4.Size = new System.Drawing.Size(452, 494);
+            this.dataGridView4.TabIndex = 19;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.SystemColors.Window;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(1422, 472);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(452, 33);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Product Line";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -327,7 +391,7 @@ namespace WindowsFormsAppWithDatabase
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Menu;
-            this.ClientSize = new System.Drawing.Size(1898, 1003);
+            this.ClientSize = new System.Drawing.Size(1898, 1007);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
@@ -341,6 +405,7 @@ namespace WindowsFormsAppWithDatabase
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -362,6 +427,10 @@ namespace WindowsFormsAppWithDatabase
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridView4;
     }
 }
 

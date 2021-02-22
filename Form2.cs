@@ -18,10 +18,12 @@ namespace WindowsFormsAppFinalTestReject
         public static string sql1;
         public static string sql2;
         public static string sql3;
+        public static string sql4;
 
         string path_sql1 = Path.Combine(Directory.GetCurrentDirectory(), "sql1.txt");
         string path_sql2 = Path.Combine(Directory.GetCurrentDirectory(), "sql2.txt");
         string path_sql3 = Path.Combine(Directory.GetCurrentDirectory(), "sql3.txt");
+        string path_sql4 = Path.Combine(Directory.GetCurrentDirectory(), "sql4.txt");
 
         string path_Server = Path.Combine(Directory.GetCurrentDirectory(), "server.txt");
         string path_Port = Path.Combine(Directory.GetCurrentDirectory(), "port.txt");
@@ -133,6 +135,11 @@ namespace WindowsFormsAppFinalTestReject
             reader = new StreamReader(path_sql3);
             sql3 = reader.ReadToEnd();
             reader.Close();
+
+            reader = new StreamReader(path_sql4);
+            sql4 = reader.ReadToEnd();
+            reader.Close();
+
         }
     }
 }

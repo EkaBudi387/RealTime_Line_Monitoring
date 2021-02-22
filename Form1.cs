@@ -17,6 +17,7 @@ namespace WindowsFormsAppWithDatabase
         DataTable dttable1;
         DataTable dttable2;
         DataTable dttable3;
+        DataTable dttable4;
 
         MySqlConnection connection = Form2.connection;
 
@@ -25,6 +26,7 @@ namespace WindowsFormsAppWithDatabase
         string sql1 = Form2.sql1;
         string sql2 = Form2.sql2;
         string sql3 = Form2.sql3;
+        string sql4 = Form2.sql4;
 
         TimeSpan breakShiftMorning = new TimeSpan(07, 00, 00);
         TimeSpan breakShiftAfternoon2 = new TimeSpan(16, 00, 00);
@@ -48,6 +50,7 @@ namespace WindowsFormsAppWithDatabase
             dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
             dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
             dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
+            dttable4 = TestToConnectMySQLServer.FillData(sql4, connection);
 
             timer1.Enabled = true;
 
@@ -60,6 +63,7 @@ namespace WindowsFormsAppWithDatabase
             dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
             dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
             dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
+            dttable4 = TestToConnectMySQLServer.FillData(sql4, connection);
 
             comboBox1.SelectedItem = comboBox1.Text;
 
@@ -74,6 +78,7 @@ namespace WindowsFormsAppWithDatabase
             dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
             dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
             dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
+            dttable4 = TestToConnectMySQLServer.FillData(sql4, connection);
 
             DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
             DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
@@ -81,6 +86,7 @@ namespace WindowsFormsAppWithDatabase
             dataGridView1.DataSource = dttable1.DefaultView;
             dataGridView2.DataSource = dtReturn.DefaultView;
             dataGridView3.DataSource = dtReturn2.DefaultView;
+            dataGridView4.DataSource = dttable4.DefaultView;
 
             Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3, rejectHighlightQty);
 
@@ -168,6 +174,7 @@ namespace WindowsFormsAppWithDatabase
             dataGridView1.DataSource = null;
             dataGridView2.DataSource = null;
             dataGridView3.DataSource = null;
+            dataGridView4.DataSource = null;
 
             DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
             DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
@@ -175,6 +182,7 @@ namespace WindowsFormsAppWithDatabase
             dataGridView1.DataSource = dttable1.DefaultView;
             dataGridView2.DataSource = dtReturn.DefaultView;
             dataGridView3.DataSource = dtReturn2.DefaultView;
+            dataGridView4.DataSource = dttable4.DefaultView;
 
             Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3, rejectHighlightQty);
 
@@ -220,6 +228,11 @@ namespace WindowsFormsAppWithDatabase
         private void buttonExitWindow(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            label2.Text = ("Time: " + DateTime.Now.ToLongTimeString());
         }
     }
 }

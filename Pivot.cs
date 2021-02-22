@@ -211,7 +211,7 @@ namespace WindowsFormsAppFinalTestReject
             DataTable tableInput = tableDBInput.Copy();
             DataTable tableReturner = new DataTable();
 
-            tableReturner.Columns.Add(rowFieldInput);
+            tableReturner.Columns.Add(rowFieldInput + "/" + "Time");
 
             List<string> columnHeaderCollector = new List<string>(columnHeaderInput);
 
