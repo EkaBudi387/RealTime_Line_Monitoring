@@ -26,6 +26,12 @@ namespace WindowsFormsAppWithDatabase
         string sql2 = Form2.sql2;
         string sql3 = Form2.sql3;
 
+        TimeSpan breakShiftMorning = new TimeSpan(07, 00, 00);
+        TimeSpan breakShiftAfternoon2 = new TimeSpan(16, 00, 00);
+        TimeSpan breakShiftAfternoon3 = new TimeSpan(15, 00, 00);
+        TimeSpan breakShiftNight2 = new TimeSpan(01, 00, 00);
+        TimeSpan breakShiftNight3 = new TimeSpan(23, 00, 00);
+
         public Form1()
         {
             InitializeComponent();
@@ -45,37 +51,29 @@ namespace WindowsFormsAppWithDatabase
 
             timer1.Enabled = true;
 
+            comboBox1.SelectedItem = "2-Shift";
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
 
-            DataTable dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
-            DataTable dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
-            DataTable dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
+            dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
+            dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
+            dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
 
-            DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
-            DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
-
-            dataGridView1.DataSource = dttable1.DefaultView;
-            dataGridView2.DataSource = dtReturn.DefaultView;
-            dataGridView3.DataSource = dtReturn2.DefaultView;
-
-            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3, rejectHighlightQty);
-
-            dataGridView3.DataSource = null;
-
-            dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Grand Total").DefaultView;
+            comboBox1.SelectedItem = comboBox1.Text;
 
             textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
+
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
 
-            DataTable dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
-            DataTable dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
-            DataTable dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
+            dttable1 = TestToConnectMySQLServer.FillData(sql1, connection);
+            dttable2 = TestToConnectMySQLServer.FillData(sql2, connection);
+            dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
 
             DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
             DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
@@ -95,12 +93,6 @@ namespace WindowsFormsAppWithDatabase
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            TimeSpan breakShiftMorning = new TimeSpan(07, 00, 00);
-            TimeSpan breakShiftAfternoon2 = new TimeSpan(16, 00, 00);
-            TimeSpan breakShiftAfternoon3 = new TimeSpan(15, 00, 00);
-            TimeSpan breakShiftNight2 = new TimeSpan(01, 00, 00);
-            TimeSpan breakShiftNight3 = new TimeSpan(23, 00, 00);
 
             if (comboBox1.Text == "2-Shift" && DateTime.Now.Hour >= breakShiftMorning.Hours && DateTime.Now.Hour < breakShiftAfternoon2.Hours)
             {
