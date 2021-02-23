@@ -92,7 +92,7 @@ namespace WindowsFormsAppWithDatabase
 
             dataGridView3.DataSource = null;
 
-            dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Grand Total").DefaultView;
+            dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Total").DefaultView;
 
             textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
         }
@@ -188,7 +188,7 @@ namespace WindowsFormsAppWithDatabase
 
             dataGridView3.DataSource = null;
 
-            dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Grand Total").DefaultView;
+            dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Total").DefaultView;
 
         }
 
@@ -233,6 +233,18 @@ namespace WindowsFormsAppWithDatabase
         private void timer2_Tick(object sender, EventArgs e)
         {
             label2.Text = ("Time: " + DateTime.Now.ToLongTimeString());
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string message =
+            "AS = Al Stripping\n" +
+            "SS = Spot Soldering\n" +
+            "SI = Soldering Inspection\n" +
+            "ST = Semi Test\n" +
+            "BA = Backshell Assembly\n" +
+            "FT = Final Test";
+            MessageBox.Show(message);
         }
     }
 }

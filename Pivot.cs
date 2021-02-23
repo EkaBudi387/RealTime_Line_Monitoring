@@ -111,25 +111,25 @@ namespace WindowsFormsAppFinalTestReject
                 }
             }
 
-            tableReturner.Columns.Add("Grand Total");
+            tableReturner.Columns.Add("Total");
 
             foreach (DataRow dataRowX in tableReturner.Rows)
             {
-                dataRowX["Grand Total"] = 0;
+                dataRowX["Total"] = 0;
 
                 foreach (string columnHeader in columnHeaderCollector)
                 {
                     if (columnHeader != rowFieldInput && dataRowX[columnHeader].ToString() != "")
-                        dataRowX["Grand Total"] = Convert.ToUInt16(dataRowX["Grand Total"]) + Convert.ToUInt16(dataRowX[columnHeader]);
+                        dataRowX["Total"] = Convert.ToUInt16(dataRowX["Total"]) + Convert.ToUInt16(dataRowX[columnHeader]);
                 }
 
             }
 
             DataRow newRowForGrandTotal = tableReturner.NewRow();
 
-            newRowForGrandTotal[0] = "Grand Total";
+            newRowForGrandTotal[0] = "Total";
 
-            columnHeaderCollector.Add("Grand Total");
+            columnHeaderCollector.Add("Total");
 
             foreach (string columnHeader in columnHeaderCollector)
             {
@@ -153,7 +153,7 @@ namespace WindowsFormsAppFinalTestReject
 
             DataTable percentagePivotTable = pivotTableInput.Copy();
 
-            int grandTotalDevider = Convert.ToInt32(percentagePivotTable.Rows[percentagePivotTable.Rows.Count - 1]["Grand Total"]);
+            int grandTotalDevider = Convert.ToInt32(percentagePivotTable.Rows[percentagePivotTable.Rows.Count - 1]["Total"]);
 
             foreach (DataRow dataRowInTableInput in percentagePivotTable.Rows)
             {
@@ -161,7 +161,7 @@ namespace WindowsFormsAppFinalTestReject
                 {
                     try
                     {
-                        if (percentageMethod == "Grand Total")
+                        if (percentageMethod == "Total")
                         {
                             dataRowInTableInput[dataColumnInTableReturn.ColumnName] = decimal.Round(Convert.ToDecimal(dataRowInTableInput[dataColumnInTableReturn.ColumnName]) / grandTotalDevider * 100, 2).ToString() + "%";
                         }
@@ -293,24 +293,24 @@ namespace WindowsFormsAppFinalTestReject
                 }
             }
 
-            tableReturner.Columns.Add("Grand Total");
+            tableReturner.Columns.Add("Total");
 
             foreach (DataRow dataRowX in tableReturner.Rows)
             {
-                dataRowX["Grand Total"] = 0;
+                dataRowX["Total"] = 0;
 
                 foreach (string columnHeader in columnHeaderCollector)
                 {
                     if (columnHeader != rowFieldInput && dataRowX[columnHeader].ToString() != "")
-                        dataRowX["Grand Total"] = Convert.ToUInt16(dataRowX["Grand Total"]) + Convert.ToUInt16(dataRowX[columnHeader]);
+                        dataRowX["Total"] = Convert.ToUInt16(dataRowX["Total"]) + Convert.ToUInt16(dataRowX[columnHeader]);
                 }
             }
 
             DataRow newRowForGrandTotal = tableReturner.NewRow();
 
-            newRowForGrandTotal[0] = "Grand Total";
+            newRowForGrandTotal[0] = "Total";
 
-            columnHeaderCollector.Add("Grand Total");
+            columnHeaderCollector.Add("Total");
 
             foreach (string columnHeader in columnHeaderCollector)
             {
