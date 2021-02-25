@@ -65,10 +65,10 @@ namespace WindowsFormsAppWithDatabase
             dttable3 = TestToConnectMySQLServer.FillData(sql3, connection);
             dttable4 = TestToConnectMySQLServer.FillData(sql4, connection);
 
-            comboBox1.SelectedItem = comboBox1.Text;
+            GenerateTable(comboBox1.Text);
+            
 
             textBox1.Text = ("Last Refresh: " + DateTime.Now.ToLongTimeString());
-
             
         }
 
@@ -100,95 +100,7 @@ namespace WindowsFormsAppWithDatabase
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (comboBox1.Text == "2-Shift" && DateTime.Now.Hour >= breakShiftMorning.Hours && DateTime.Now.Hour < breakShiftAfternoon2.Hours)
-            {
-
-                columnHeaderInput.Clear();
-                columnHeaderInput.Add("07");
-                columnHeaderInput.Add("08");
-                columnHeaderInput.Add("09");
-                columnHeaderInput.Add("10");
-                columnHeaderInput.Add("11");
-                columnHeaderInput.Add("12");
-                columnHeaderInput.Add("13");
-                columnHeaderInput.Add("14");
-                columnHeaderInput.Add("15");
-
-            }
-
-
-            else if (comboBox1.Text == "2-Shift" && (DateTime.Now.Hour >= breakShiftAfternoon2.Hours || DateTime.Now.Hour < breakShiftNight2.Hours))
-            {
-                columnHeaderInput.Clear();
-                columnHeaderInput.Add("16");
-                columnHeaderInput.Add("17");
-                columnHeaderInput.Add("18");
-                columnHeaderInput.Add("19");
-                columnHeaderInput.Add("20");
-                columnHeaderInput.Add("21");
-                columnHeaderInput.Add("22");
-                columnHeaderInput.Add("23");
-                columnHeaderInput.Add("00");
-
-            }
-            else if (comboBox1.Text == "3-Shift" && DateTime.Now.Hour >= breakShiftMorning.Hours && DateTime.Now.Hour < breakShiftAfternoon3.Hours)
-            {
-                columnHeaderInput.Clear();
-                columnHeaderInput.Add("07");
-                columnHeaderInput.Add("08");
-                columnHeaderInput.Add("09");
-                columnHeaderInput.Add("10");
-                columnHeaderInput.Add("11");
-                columnHeaderInput.Add("12");
-                columnHeaderInput.Add("13");
-                columnHeaderInput.Add("14");
-
-            }
-            else if (comboBox1.Text == "3-Shift" && DateTime.Now.Hour >= breakShiftAfternoon3.Hours && DateTime.Now.Hour < breakShiftNight3.Hours)
-            {
-                columnHeaderInput.Clear();
-                columnHeaderInput.Add("15");
-                columnHeaderInput.Add("16");
-                columnHeaderInput.Add("17");
-                columnHeaderInput.Add("18");
-                columnHeaderInput.Add("19");
-                columnHeaderInput.Add("20");
-                columnHeaderInput.Add("21");
-                columnHeaderInput.Add("22");
-
-            }
-            else
-            {
-                columnHeaderInput.Clear();
-                columnHeaderInput.Add("23");
-                columnHeaderInput.Add("00");
-                columnHeaderInput.Add("01");
-                columnHeaderInput.Add("02");
-                columnHeaderInput.Add("03");
-                columnHeaderInput.Add("04");
-                columnHeaderInput.Add("05");
-                columnHeaderInput.Add("06");
-
-            }
-
-            dataGridView1.DataSource = null;
-            dataGridView2.DataSource = null;
-            dataGridView3.DataSource = null;
-            dataGridView4.DataSource = null;
-
-            DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
-            DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
-
-            dataGridView1.DataSource = dttable1.DefaultView;
-            dataGridView2.DataSource = dtReturn.DefaultView;
-            dataGridView3.DataSource = dtReturn2.DefaultView;
-            dataGridView4.DataSource = dttable4.DefaultView;
-
-            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3, rejectHighlightQty);
-
-            dataGridView3.DataSource = null;
-
-            dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Total").DefaultView;
+            GenerateTable(comboBox1.Text);
 
         }
 
@@ -245,6 +157,99 @@ namespace WindowsFormsAppWithDatabase
             "BA = Backshell Assembly\n" +
             "FT = Final Test";
             MessageBox.Show(message);
+        }
+
+        public void GenerateTable(string selectedShift)
+        {
+            if (selectedShift == "2-Shift" && DateTime.Now.Hour >= breakShiftMorning.Hours && DateTime.Now.Hour < breakShiftAfternoon2.Hours)
+            {
+
+                columnHeaderInput.Clear();
+                columnHeaderInput.Add("07");
+                columnHeaderInput.Add("08");
+                columnHeaderInput.Add("09");
+                columnHeaderInput.Add("10");
+                columnHeaderInput.Add("11");
+                columnHeaderInput.Add("12");
+                columnHeaderInput.Add("13");
+                columnHeaderInput.Add("14");
+                columnHeaderInput.Add("15");
+
+            }
+
+
+            else if (selectedShift == "2-Shift" && (DateTime.Now.Hour >= breakShiftAfternoon2.Hours || DateTime.Now.Hour < breakShiftNight2.Hours))
+            {
+                columnHeaderInput.Clear();
+                columnHeaderInput.Add("16");
+                columnHeaderInput.Add("17");
+                columnHeaderInput.Add("18");
+                columnHeaderInput.Add("19");
+                columnHeaderInput.Add("20");
+                columnHeaderInput.Add("21");
+                columnHeaderInput.Add("22");
+                columnHeaderInput.Add("23");
+                columnHeaderInput.Add("00");
+
+            }
+            else if (selectedShift == "3-Shift" && DateTime.Now.Hour >= breakShiftMorning.Hours && DateTime.Now.Hour < breakShiftAfternoon3.Hours)
+            {
+                columnHeaderInput.Clear();
+                columnHeaderInput.Add("07");
+                columnHeaderInput.Add("08");
+                columnHeaderInput.Add("09");
+                columnHeaderInput.Add("10");
+                columnHeaderInput.Add("11");
+                columnHeaderInput.Add("12");
+                columnHeaderInput.Add("13");
+                columnHeaderInput.Add("14");
+
+            }
+            else if (selectedShift == "3-Shift" && DateTime.Now.Hour >= breakShiftAfternoon3.Hours && DateTime.Now.Hour < breakShiftNight3.Hours)
+            {
+                columnHeaderInput.Clear();
+                columnHeaderInput.Add("15");
+                columnHeaderInput.Add("16");
+                columnHeaderInput.Add("17");
+                columnHeaderInput.Add("18");
+                columnHeaderInput.Add("19");
+                columnHeaderInput.Add("20");
+                columnHeaderInput.Add("21");
+                columnHeaderInput.Add("22");
+
+            }
+            else
+            {
+                columnHeaderInput.Clear();
+                columnHeaderInput.Add("23");
+                columnHeaderInput.Add("00");
+                columnHeaderInput.Add("01");
+                columnHeaderInput.Add("02");
+                columnHeaderInput.Add("03");
+                columnHeaderInput.Add("04");
+                columnHeaderInput.Add("05");
+                columnHeaderInput.Add("06");
+
+            }
+
+            dataGridView1.DataSource = null;
+            dataGridView2.DataSource = null;
+            dataGridView3.DataSource = null;
+            dataGridView4.DataSource = null;
+
+            DataTable dtReturn = Pivot.GetFixedPivotTable(dttable2, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
+            DataTable dtReturn2 = Pivot.GetFixedPivotTable(dttable3, "Date", "Line", "SA_SN", "0", "Count", columnHeaderInput);
+
+            dataGridView1.DataSource = dttable1.DefaultView;
+            dataGridView2.DataSource = dtReturn.DefaultView;
+            dataGridView3.DataSource = dtReturn2.DefaultView;
+            dataGridView4.DataSource = dttable4.DefaultView;
+
+            Pivot.GetDivisionCellFormat(dataGridView2, dataGridView3, rejectHighlightQty);
+
+            dataGridView3.DataSource = null;
+
+            dataGridView3.DataSource = Pivot.GetPercentagePivotTable(dtReturn2, "Total").DefaultView;
         }
     }
 }
